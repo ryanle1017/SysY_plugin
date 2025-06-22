@@ -27,7 +27,9 @@
     "dev:debug": "vite --debug --force",
     "serve": "npm run dev",
     "test": "vitest run",
-    "fix-arrays": "node src/fixArraySize.js"
+    "fix-arrays": "node src/fixArraySize.js",
+    "vscode:prepublish": "npm run esbuild-base -- --minify && npm run lint",
+    "esbuild-base": "esbuild ./src/extension/main.ts --bundle --outfile=out/main.js --external:vscode --format=cjs --platform=node"
   },
   "dependencies": {
     "langium": "~3.0.0",
@@ -110,7 +112,7 @@
     ]
   },
   "activationEvents": [],
-  "main": "./out/extension/main.cjs",
+  "main": "./out/main.js",
   "bin": {
     "hello-world-cli": "./bin/cli.js"
   },
