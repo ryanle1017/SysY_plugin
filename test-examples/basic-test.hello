@@ -1,0 +1,46 @@
+// SysY基础功能测试文件
+int global_var = 10;
+float pi = 3.14;
+
+// 函数定义测试
+int add(int a, int b) {
+    return a + b;
+}
+
+float multiply(float x, float y) {
+    return x * y;
+}
+
+// 数组测试
+int fibonacci(int n) {
+    int arr[5] = {1, 1, 2, 3, 5};  // 正常数组
+    if (n < 5) {
+        return arr[n];
+    }
+    return 0;
+}
+
+// 控制流测试
+int factorial(int n) {
+    if (n <= 1) {
+        return 1;
+    }
+    
+    int result = 1;
+    while (n > 1) {
+        result = result * n;
+        n = n - 1;
+    }
+    
+    return result;
+}
+
+// 主函数
+int main() {
+    int sum = add(5, 3);
+    float product = multiply(2.5, 4.0);
+    int fib5 = fibonacci(4);
+    int fact5 = factorial(5);
+    
+    return 0;
+} 

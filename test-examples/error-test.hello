@@ -1,0 +1,54 @@
+// SysY错误检测测试文件
+
+// 1. 重复函数定义测试
+int test_func() {
+    return 1;
+}
+
+int test_func() {  // 应该报错：重复函数定义
+    return 2;
+}
+
+// 2. 重复变量定义测试
+int duplicate_var, duplicate_var;  // 应该报错：重复变量定义
+
+// 3. 未定义变量使用测试
+int use_undefined() {
+    return undefined_var;  // 应该报错：使用未定义变量
+}
+
+// 4. 未定义函数调用测试
+int call_undefined() {
+    return undefined_function();  // 应该报错：调用未定义函数
+}
+
+// 5. 函数参数不匹配测试
+int params_test(int a, int b, int c) {
+    return a + b + c;
+}
+
+int main() {
+    int result1 = params_test(1, 2);     // 应该报错：参数太少
+    int result2 = params_test(1, 2, 3, 4); // 应该报错：参数太多
+    return 0;
+}
+
+// 6. 数组初始化超出大小测试
+int array_overflow_test() {
+    int small_array[3] = {1, 2, 3, 4, 5};  // 应该报错：初始化元素超出数组大小
+    return small_array[0];
+}
+
+// 7. 无返回值函数测试
+int missing_return_test() {
+    int x = 5;
+    // 应该报错：缺少return语句
+}
+
+// 8. break/continue在非循环中使用测试
+int invalid_break() {
+    if (1) {
+        break;  // 应该报错：break不在循环中
+    }
+    return 0;
+} 

@@ -1,0 +1,49 @@
+html,
+body {
+  background: rgb(33, 33, 33);
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  color: white;
+  margin: 0;
+}
+h1 {
+  text-align: center;
+}
+footer {
+  text-align: center;
+  color: #444;
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+}
+a:link {
+  color: gray;
+}
+a:visited {
+  color: lightskyblue;
+}
+/* for monaco */
+.wrapper {
+  padding: 0 5%;
+}
+#monaco-editor-root {
+  height: calc(100vh - 7.5rem - 270px); /* 减小高度以腾出空间给调试UI */
+}
+
+/* 调试UI样式 */
+.debug-container-wrapper {
+  margin: 10px 0;
+}
+
+.debug-pane {
+  background-color: #1e1e1e;
+  border: 1px solid #454545;
+  border-radius: 3px;
+}
+
+.current-line-highlight {
+  background-color: rgba(58, 58, 127, 0.5) !important;
+}
+
+.breakpoint-glyph {
+  margin-left: 2px;
+}
