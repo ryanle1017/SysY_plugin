@@ -1,16 +1,31 @@
 {
-  "name": "hello-world",
-  "description": "北科软工课设SysY2022 扩展语言编辑器插件",
+  "name": "sysy-language-support",
+  "displayName": "SysY Language Support",
+  "description": "SysY2022语言编辑器插件 - 提供完整的语法高亮、智能提示、错误检测和代码格式化功能",
+  "version": "0.1.0",
   "icon": "images/logo.png",
+  "keywords": [
+    "sysy",
+    "compiler",
+    "language-support",
+    "syntax-highlighting",
+    "langium",
+    "北京科技大学",
+    "编程语言"
+  ],
   "author": {
     "name": "乐一然、谭志勇、魏竹松"
   },
-  "publisher": "lyr_tzy_wzs",
+  "publisher": "ustb-sysy-team-ryan",
   "repository": {
     "type": "git",
     "url": "https://github.com/ryanle1017/SysY_plugin.git"
   },
-  "version": "0.0.1",
+  "homepage": "https://github.com/ryanle1017/SysY_plugin#readme",
+  "bugs": {
+    "url": "https://github.com/ryanle1017/SysY_plugin/issues"
+  },
+  "license": "MIT",
   "type": "module",
   "scripts": {
     "build": "tsc -b tsconfig.src.json && node esbuild.mjs",
@@ -58,7 +73,6 @@
     "vite": "~4.4.11",
     "vitest": "~1.0.0"
   },
-  "displayName": "SysY2022 扩展语言编辑器插件",
   "engines": {
     "vscode": "^1.67.0",
     "node": ">=18.0.0"
