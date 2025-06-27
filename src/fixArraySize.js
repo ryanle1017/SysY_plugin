@@ -6,7 +6,7 @@ import { fileURLToPath } from "url";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// 如果在命令行中提供了文件路径，则使用它，否则使用当前工作目录下的所有.hello文件
+// 如果在命令行中提供了文件路径，则使用它，否则使用当前工作目录下的所有.sys文件
 const filePath = process.argv[2];
 let filesToProcess = [];
 
@@ -14,7 +14,7 @@ if (filePath) {
   filesToProcess.push(filePath);
 } else {
   const files = fs.readdirSync(process.cwd());
-  filesToProcess = files.filter((file) => file.endsWith(".hello"));
+      filesToProcess = files.filter((file) => file.endsWith(".sys"));
 }
 
 // 处理每个文件

@@ -23,9 +23,9 @@
 
 ### 🛠️ **智能修复**
 - **💡 快速修复** - 一键修复常见代码问题
-- **🔄 自动重构** - 变量重命名、代码提取等重构功能
 - **📝 悬浮提示** - 鼠标悬停显示变量类型和函数签名
 - **🎯 诊断建议** - 详细的错误说明和修复建议
+- **❌ 重构功能** - 暂未实现（变量重命名、代码提取等）
 
 ### 🌐 **多平台支持**
 - **💻 VSCode插件** - 完整的VSCode扩展支持
@@ -34,7 +34,7 @@
 
 ## 📸 界面预览
 
-```sysy
+```sys
 // SysY代码示例 - 支持完整语法高亮和智能提示
 int factorial(int n) {
     if (n <= 1) {
@@ -85,8 +85,8 @@ npm run serve
 # 打包插件
 npm run build
 
-# 安装插件（已生成 hello-world-0.0.1.vsix）
-code --install-extension hello-world-0.0.1.vsix
+# 安装插件（已生成 sysy-language-support-1.0.0.vsix）
+code --install-extension sysy-language-support-1.0.0.vsix
 ```
 
 ### 🧪 运行测试
@@ -125,7 +125,7 @@ npm test
 SysY/
 ├── 📁 src/
 │   ├── 📁 language/           # 语言服务核心
-│   │   ├── 📄 hello-world.langium      # SysY语法定义
+│   │   ├── 📄 hello-world.langium      # SysY语法定义(.sys文件支持)
 │   │   ├── 📄 formatting-provider.ts   # 格式化服务
 │   │   ├── 📄 decl-validator.ts        # 声明验证器
 │   │   ├── 📄 funcl-validator.ts       # 函数验证器

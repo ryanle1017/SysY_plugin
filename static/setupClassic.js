@@ -1,13 +1,13 @@
+import monarchSyntax from "../syntaxes/hello-world.monarch.js";
 import {
   addMonacoStyles,
   defineUserServices,
   MonacoEditorLanguageClientWrapper,
 } from "./bundle/index.js";
-import monarchSyntax from "../syntaxes/hello-world.monarch.js";
-import { configureWorker } from "./setup.js";
-import { compilerService, debuggerService } from "./compiler-service.js";
-import { DebugUI, addDebugStyles } from "./debug-ui.js";
+import { debuggerService } from "./compiler-service.js";
+import { addDebugStyles, DebugUI } from "./debug-ui.js";
 import { ExampleLoader } from "./example-loader.js";
+import { configureWorker } from "./setup.js";
 
 addMonacoStyles("monaco-editor-styles");
 
@@ -17,14 +17,8 @@ export const setupConfigClassic = () => {
       serviceConfig: defineUserServices(),
       editorAppConfig: {
         $type: "classic",
-        languageId: "hello-world",
-        code: `// 在这里编写SysY语言代码
-// 例如尝试创建一个数组大小溢出的情况: int numbers[5] = {1, 2, 3, 4, 5, 6};
-
-int main() {
-    // 您的代码
-    return 0;
-}`,
+        languageId: "sysy",
+        code: `// 在这里编写SysY语言代码`,
         useDiffEditor: false,
         languageExtensionConfig: { id: "langium" },
         languageDef: monarchSyntax,
@@ -100,7 +94,7 @@ function registerQuickFixProvider(monaco, wrapper) {
                   endColumn: sizeEnd + 1,
                   message: `数组 ${arrayName} 的初始化元素数量(${initElements})超过了数组大小(${currentSize})。`,
                   code: ARRAY_SIZE_OVERFLOW,
-                  source: "hello-world",
+                  source: "sysy",
                   tags: [],
                   relatedInformation: [],
                   data: {
@@ -121,7 +115,7 @@ function registerQuickFixProvider(monaco, wrapper) {
     console.log(`共找到 ${markers.length} 个数组大小溢出问题`);
 
     // 将标记设置到模型
-    monaco.editor.setModelMarkers(model, "hello-world-validator", markers);
+    monaco.editor.setModelMarkers(model, "sysy-validator", markers);
     return markers;
   }
 
@@ -142,7 +136,7 @@ function registerQuickFixProvider(monaco, wrapper) {
   }, 1000);
 
   // 注册代码操作提供程序
-  monaco.languages.registerCodeActionProvider("hello-world", {
+  monaco.languages.registerCodeActionProvider("sysy", {
     provideCodeActions(model, range, context, token) {
       console.log("CodeActionProvider被调用", context);
       const actions = [];

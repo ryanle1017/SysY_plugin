@@ -1,7 +1,7 @@
 import {
-    addMonacoStyles,
-    defineUserServices,
-    MonacoEditorLanguageClientWrapper,
+  addMonacoStyles,
+  defineUserServices,
+  MonacoEditorLanguageClientWrapper,
 } from "./bundle/index.js";
 import { debuggerService } from "./compiler-service.js";
 import { addDebugStyles, DebugUI } from "./debug-ui.js";
@@ -31,14 +31,8 @@ export const setupConfigExtended = () => {
       serviceConfig: defineUserServices(),
       editorAppConfig: {
         $type: "extended",
-        languageId: "hello-world",
-        code: `// 在这里编写SysY语言代码
-// 例如尝试创建一个数组大小溢出的情况: int numbers[5] = {1, 2, 3, 4, 5, 6};
-
-int main() {
-    // 您的代码
-    return 0;
-}`,
+        languageId: "sysy",
+        code: `// 在这里编写SysY语言代码`,
         useDiffEditor: false,
         extensions: [
           {
@@ -52,15 +46,15 @@ int main() {
               contributes: {
                 languages: [
                   {
-                    id: "hello-world",
-                    extensions: [".hello-world"],
+                    id: "sys",
+                    extensions: [".sys"],
                     configuration: "./language-configuration.json",
                   },
                 ],
                 grammars: [
                   {
-                    language: "hello-world",
-                    scopeName: "source.hello-world",
+                                          language: "sys",
+                    scopeName: "source.sys",
                     path: "./hello-world-grammar.json",
                   },
                 ],
@@ -168,7 +162,7 @@ function registerQuickFixProvider(monaco, wrapper) {
                   endColumn: sizeEnd + 1,
                   message: `数组 ${arrayName} 的初始化元素数量(${initElements})超过了数组大小(${currentSize})。`,
                   code: ARRAY_SIZE_OVERFLOW,
-                  source: "hello-world",
+                  source: "sysy",
                   tags: [],
                   relatedInformation: [],
                   data: {
@@ -189,7 +183,7 @@ function registerQuickFixProvider(monaco, wrapper) {
     console.log(`共找到 ${markers.length} 个数组大小溢出问题`);
 
     // 将标记设置到模型
-    monaco.editor.setModelMarkers(model, "hello-world-validator", markers);
+    monaco.editor.setModelMarkers(model, "sysy-validator", markers);
     return markers;
   }
 
@@ -210,7 +204,7 @@ function registerQuickFixProvider(monaco, wrapper) {
   }, 1000);
 
   // 注册代码操作提供程序
-  monaco.languages.registerCodeActionProvider("hello-world", {
+  monaco.languages.registerCodeActionProvider("sysy", {
     provideCodeActions(model, range, context, token) {
       console.log("CodeActionProvider被调用", context);
       const actions = [];
@@ -276,19 +270,19 @@ function registerQuickFixProvider(monaco, wrapper) {
 
 // 注册代码格式化提供程序
 function registerFormattingProvider(monaco) {
-  monaco.languages.registerDocumentFormattingEditProvider("hello-world", {
+  monaco.languages.registerDocumentFormattingEditProvider("sysy", {
     provideDocumentFormattingEdits(model, options, token) {
       return formatCode(model, options);
     }
   });
 
-  monaco.languages.registerDocumentRangeFormattingEditProvider("hello-world", {
+  monaco.languages.registerDocumentRangeFormattingEditProvider("sysy", {
     provideDocumentRangeFormattingEdits(model, range, options, token) {
       return formatCodeRange(model, range, options);
     }
   });
 
-  monaco.languages.registerOnTypeFormattingEditProvider("hello-world", {
+  monaco.languages.registerOnTypeFormattingEditProvider("sysy", {
     provideOnTypeFormattingEdits(model, position, ch, options, token) {
       return formatOnType(model, position, ch, options);
     }

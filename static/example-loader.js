@@ -8,12 +8,12 @@ const examples = {
   factorial: {
     name: "阶乘计算 (递归示例)",
     description: "演示递归函数计算阶乘",
-    path: "examples/factorial.sysy",
+    path: "examples/factorial.sys",
   },
   "bubble-sort": {
     name: "冒泡排序 (数组操作示例)",
     description: "演示数组和循环操作实现冒泡排序",
-    path: "examples/bubble-sort.sysy",
+    path: "examples/bubble-sort.sys",
   },
 };
 

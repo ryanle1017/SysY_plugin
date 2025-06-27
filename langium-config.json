@@ -3,7 +3,7 @@
     "languages": [{
         "id": "hello-world",
         "grammar": "src/language/hello-world.langium",
-        "fileExtensions": [".hello"],
+        "fileExtensions": [".sys"],
         "textMate": {
             "out": "syntaxes/hello-world.tmLanguage.json"
         },

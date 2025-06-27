@@ -2,3 +2,40 @@
 .vscode-test/**
 .gitignore
 langium-quickstart.md
+
+# 开发工具和配置
+node_modules/**
+src/**
+test/**
+test-examples/**
+*.ts
+*.js
+*.mjs
+tsconfig*.json
+vitest.config.ts
+vite.bundle.config.ts
+esbuild.mjs
+
+# 构建和开发文件
+static/**
+scripts/**
+.git/**
+.eslintrc.json
+
+# 测试文件
+test-*.sysy
+test-*.sys
+test-*.hello
+test-features.md
+
+# 文档和报告（排除这些，但保留README.md）
+langium-quickstart.md
+项目完成报告.md
+功能清单.md
+
+# 确保包含重要文件
+!README.md
+!LICENSE
+
+# 包管理文件
+package-lock.json

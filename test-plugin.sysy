@@ -1,0 +1,21 @@
+// SysY测试文件 - 用于验证插件功能
+
+int main() {
+    int a = 10;
+    int b = 20;
+    int c = a + b;
+    
+    // 这里有一个数组大小溢出问题
+    int arr[3] = {1, 2, 3, 4, 5};
+    
+    if (c > 25) {
+        return 1;
+    } else {
+        return 0;
+    }
+}
+
+void test_function(int x, int y) {
+    int result = x * y;
+    return result; // 这里应该有错误：void函数不应该返回值
+} 

@@ -98,14 +98,93 @@ export class FuncValidator {
 
   /**
    * 检查非循环块中的break/continue语句
-   * TODO: 需要根据新的AST结构重新实现
    */
   checkBreakContinueInNonLoopBlocks(
     funcDef: FuncDef,
     accept: ValidationAcceptor
   ): void {
-    // 暂时注释掉，需要根据新的AST结构重新实现
-    // console.log('checkBreakContinueInNonLoopBlocks temporarily disabled');
+    this.checkStatementsInBlock(funcDef.block, false, accept);
+  }
+
+  /**
+   * 递归检查块中的语句
+   * @param block 要检查的块
+   * @param inLoop 是否在循环内
+   * @param accept 验证接收器
+   */
+  private checkStatementsInBlock(
+    block: any,
+    inLoop: boolean,
+    accept: ValidationAcceptor
+  ): void {
+    if (!block?.blockItems) return;
+
+    for (const blockItem of block.blockItems) {
+      // 检查是否是声明还是语句
+      const stmt = blockItem.blockStmt;
+      
+      if (stmt) {
+        switch (stmt.$type) {
+          case "Stmtbreak":
+            if (!inLoop) {
+              const message = `'break' 语句只能在循环中使用。`;
+              accept(
+                "error",
+                this.errorMessageProvider.getSafeEnhancedMessage(message),
+                {
+                  node: stmt,
+                                     code: ERROR_CODES.INVALID_BREAK_CONTINUE,
+                   data: {
+                     explanation: "break语句只能出现在while循环中",
+                     suggestion: "移除break语句或将其放在循环内",
+                     category: ErrorCategory.CONTROL,
+                   },
+                }
+              );
+            }
+            break;
+
+          case "Stmtcontinue":
+            if (!inLoop) {
+              const message = `'continue' 语句只能在循环中使用。`;
+              accept(
+                "error",
+                this.errorMessageProvider.getSafeEnhancedMessage(message),
+                {
+                  node: stmt,
+                                     code: ERROR_CODES.INVALID_BREAK_CONTINUE,
+                   data: {
+                     explanation: "continue语句只能出现在while循环中",
+                     suggestion: "移除continue语句或将其放在循环内",
+                     category: ErrorCategory.CONTROL,
+                   },
+                }
+              );
+            }
+            break;
+
+          case "Stmtwhile":
+            // 递归检查while循环体，标记为在循环内
+            this.checkStatementsInBlock(stmt.whilestmt, true, accept);
+            break;
+
+          case "Stmtelif":
+            // 递归检查if语句体
+            this.checkStatementsInBlock(stmt.ifstmt, inLoop, accept);
+            if (stmt.elsestmt) {
+              this.checkStatementsInBlock(stmt.elsestmt, inLoop, accept);
+            }
+            break;
+
+          default:
+            // 对于其他语句类型，如果它们包含嵌套块，也需要递归检查
+            if (stmt.blockItems) {
+              this.checkStatementsInBlock(stmt, inLoop, accept);
+            }
+            break;
+        }
+      }
+    }
   }
 
   /**

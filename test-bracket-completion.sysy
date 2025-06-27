@@ -1,0 +1,28 @@
+// SysY 括号自动补全测试文件
+
+int main() {
+    // 测试花括号自动补全
+    if (1 > 0) {
+        int arr[10] = {1, 2, 3, 4, 5};
+        
+        // 测试方括号自动补全
+        arr[0] = arr[1] + arr[2];
+        
+        // 测试圆括号自动补全
+        if ((arr[0] + arr[1]) > 0) {
+            return arr[0];
+        }
+    }
+    
+    return 0;
+}
+
+// 测试函数调用括号
+int factorial(int n) {
+    if (n <= 1) {
+        return 1;
+    }
+    return n * factorial(n - 1);
+} 
+int a = 0;
+int a = 1;

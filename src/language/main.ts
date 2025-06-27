@@ -1,19 +1,16 @@
 import { startLanguageServer } from "langium/lsp";
 import { NodeFileSystem } from "langium/node";
 import {
-  CodeActionParams,
-  createConnection,
-  DiagnosticSeverity,
-  ProposedFeatures,
-  PublishDiagnosticsParams,
-  TextDocumentPositionParams,
-  TextEdit,
+    CodeActionParams,
+    createConnection,
+    DiagnosticSeverity,
+    ProposedFeatures,
+    PublishDiagnosticsParams
 } from "vscode-languageserver/node.js";
-import { TextDocument } from "vscode-languageserver-textdocument";
 import { URI } from "vscode-uri";
+import { ErrorCategory } from "./error-message-provider.js";
 import { createHelloWorldServices } from "./hello-world-module.js";
 import { getErrorCode } from "./quickfix-provider.js";
-import { ErrorCategory } from "./error-message-provider.js";
 
 // Create a connection to the client
 const connection = createConnection(ProposedFeatures.all);

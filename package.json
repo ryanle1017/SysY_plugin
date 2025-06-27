@@ -1,8 +1,8 @@
 {
   "name": "sysy-language-support",
-  "displayName": "SysY Language Support",
+  "displayName": "SysY Language Extension",
   "description": "SysY2022语言编辑器插件 - 提供完整的语法高亮、智能提示、错误检测和代码格式化功能",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "icon": "images/logo.png",
   "keywords": [
     "sysy",
@@ -83,21 +83,21 @@
   "contributes": {
     "languages": [
       {
-        "id": "hello-world",
+        "id": "sys",
         "aliases": [
-          "Hello World",
-          "hello-world"
+          "SysY",
+          "sys"
         ],
         "extensions": [
-          ".hello"
+          ".sys"
         ],
         "configuration": "./language-configuration.json"
       }
     ],
     "grammars": [
       {
-        "language": "hello-world",
-        "scopeName": "source.hello-world",
+        "language": "sys",
+        "scopeName": "source.sys",
         "path": "syntaxes/hello-world.tmLanguage.json"
       }
     ],
@@ -110,7 +110,7 @@
     "menus": {
       "editor/context": [
         {
-          "when": "editorLangId == hello-world",
+          "when": "editorLangId == sys",
           "command": "sysy.quickFixCurrentLine",
           "group": "1_modification"
         }
@@ -121,11 +121,13 @@
         "command": "sysy.quickFixCurrentLine",
         "key": "ctrl+alt+f",
         "mac": "cmd+alt+f",
-        "when": "editorLangId == hello-world"
+        "when": "editorLangId == sys"
       }
     ]
   },
-  "activationEvents": [],
+  "activationEvents": [
+    "onLanguage:sys"
+  ],
   "main": "./out/main.js",
   "bin": {
     "hello-world-cli": "./bin/cli.js"

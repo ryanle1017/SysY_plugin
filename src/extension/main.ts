@@ -1,8 +1,8 @@
 import * as path from "node:path";
 import * as vscode from "vscode";
 import type {
-  LanguageClientOptions,
-  ServerOptions,
+    LanguageClientOptions,
+    ServerOptions,
 } from "vscode-languageclient/node.js";
 import { LanguageClient, TransportKind } from "vscode-languageclient/node.js";
 
@@ -144,7 +144,7 @@ export function deactivate(): Thenable<void> | undefined {
 
 function startLanguageClient(context: vscode.ExtensionContext): LanguageClient {
   const serverModule = context.asAbsolutePath(
-    path.join("out", "language", "main.cjs")
+    path.join("out", "language", "main.js")
   );
   // The debug options for the server
   // --inspect=6009: runs the server in Node's Inspector mode so VS Code can attach to the server for debugging.
@@ -171,13 +171,13 @@ function startLanguageClient(context: vscode.ExtensionContext): LanguageClient {
 
   // Options to control the language client
   const clientOptions: LanguageClientOptions = {
-    documentSelector: [{ scheme: "file", language: "hello-world" }],
+    documentSelector: [{ scheme: "file", language: "sysy" }],
   };
 
   // Create the language client and start the client.
   const client = new LanguageClient(
-    "hello-world",
-    "Hello World",
+    "sysy-language-server",
+    "SysY Language Server",
     serverOptions,
     clientOptions
   );

@@ -23,7 +23,7 @@ grammar HelloWorld
 // 第一部分：程序结构 - 编译单元和函数定义
 // ===============================================================================
 
-entry Model:
+entry Model:   
     CompUnit;
 
 CompUnit: // 编译单元：由声明和函数定义组成
@@ -49,7 +49,7 @@ Block: // 语句块
 // ===============================================================================
 // 第二部分：语句定义
 // ===============================================================================
-
+			
 Stmt: // 语句
     // LVal '=' Exp ';' | [Exp] ';' | Block
     // | 'if' '(' Cond ')' Stmt [ 'else' Stmt ]
@@ -57,9 +57,9 @@ Stmt: // 语句
     // | 'break' ';' | 'continue' ';'
     // | 'return' [Exp] ';'
     
-    {infer StmtLval} lval=LVal '=' expr1=Exp ';'
-    | {infer StmtExp} (expr2=Exp)? ';'
-    | Block
+				{infer StmtLval} lval=LVal '=' expr1=Exp ';' 
+              | {infer StmtExp} (expr2=Exp)? ';' 
+              | Block
     | {infer Stmtelif} 'if' '(' condition=Cond ')' ifstmt=Stmt ('else' elsestmt=Stmt)?
     | {infer Stmtwhile} 'while' '(' condition=Cond ')' whilestmt=Stmt
     | {infer Stmtbreak} 'break' ';'
@@ -80,7 +80,7 @@ ConstDecl infers Decl: // 常量声明
     ConstDef: // 常数定义
         // Ident { '[' ConstExp ']' } '=' ConstInitVal
         name=ID ('[' index += ConstExp ']')* '=' ConstInitVal;
-
+	
         ConstInitVal: // 常量初值
             // ConstExp | '{' [ ConstInitVal { ',' ConstInitVal } ] '}'
             singleCInit += ConstExp 
@@ -105,23 +105,23 @@ VarDecl infers Decl: // 变量声明
 
 Cond: // 条件表达式
     // LOrExp（因为定义不明而且缺乏bool类型，它被移除）
-    LOrExp;
-
+	LOrExp;
+	
 LOrExp infers Cond: // 逻辑或表达式
     // LAndExp | LOrExp '||' LAndExp
-    LAndExp ({infer BinExpr.left=current} operator='||' right=LAndExp)*;
+	LAndExp ({infer BinExpr.left=current} operator='||' right=LAndExp)*;
 
 LAndExp infers Cond: // 逻辑与表达式
     // EqExp | LAndExp '&&' EqExp
-    EqExp ({infer BinExpr.left=current} operator='&&' right=EqExp)*;
+	EqExp ({infer BinExpr.left=current} operator='&&' right=EqExp)*;
 
 EqExp infers Cond: // 相等性表达式
     // RelExp | EqExp ('==' | '!=') RelExp
-    RelExp ({infer BinExpr.left=current} operator=('==' | '!=') right=RelExp)*;
+	RelExp ({infer BinExpr.left=current} operator=('==' | '!=') right=RelExp)*;
 
 RelExp infers Cond: // 关系表达式
     // AddExp | RelExp ('<' | '>' | '<=' | '>=') AddExp
-    AddExp ({infer BinExpr.left=current} operator=('<' | '>' | '<=' | '>=') right=AddExp)*;
+	AddExp ({infer BinExpr.left=current} operator=('<' | '>' | '<=' | '>=') right=AddExp)*;
 
 // ===============================================================================
 // 第五部分：算术表达式
@@ -132,11 +132,11 @@ ConstExp: // 常量表达式
     // constExp取决于子树在UnaryExp和Lval的判断层级：
     // - 不能包含函数，即UnaryExp使用第二种分解
     // - 使用的Ident必须是常量，要从ConstDef获得，在UnaryExp->PrimaryExp->Lval里
-    AddExp;
+	AddExp;
 
 Exp: // 表达式
     // AddExp
-    AddExp;
+	AddExp;
 
 AddExp infers Exp: // 加减表达式
     // MulExp | AddExp ('+' | '-') MulExp
@@ -144,19 +144,19 @@ AddExp infers Exp: // 加减表达式
 
 MulExp infers Exp: // 乘除模表达式
     // UnaryExp | MulExp ('*' | '/' | '%') UnaryExp
-    UnaryExp ({infer BinExpr.left=current} operator=('*' | '/' | '%') right=UnaryExp)*;
+	UnaryExp ({infer BinExpr.left=current} operator=('*' | '/' | '%') right=UnaryExp)*;
 
 UnaryExp infers Exp: // 一元表达式
     // PrimaryExp | Ident '(' [FuncRParams] ')' | UnaryOp UnaryExp
-    PrimaryExp
+	PrimaryExp
     | {infer FunctionCall} funcname=[FuncDef:ID] '(' (FuncRParams)? ')'
     | {infer BinExpr.left=current} operator=('+' | '-' | '!') right=UnaryExp;
 
 PrimaryExp infers Exp: // 基本表达式
     // '(' Exp ')' | LVal | Number
-    '(' Exp ')'
-    | LVal
-    | {infer NumberLiteral} _Number
+	'(' Exp ')'	 
+	| LVal  
+	| {infer NumberLiteral} _Number
     | {infer ConstantLVal} value=[ConstDef:ID] ('[' index += Exp ']')*;
 
 // ===============================================================================
@@ -166,13 +166,13 @@ PrimaryExp infers Exp: // 基本表达式
 type AbstractVariable = ConstDef | VarDef | FuncFParam;
 
 LVal: // 左值表达式：数组或者单个变量
-    // Ident {'[' Exp ']'}
+	// Ident {'[' Exp ']'}
     {infer VariableLVal} value=[AbstractVariable:ID] ('[' index += Exp ']')*;
-
+	
 FuncRParams: // 函数实参表
     // Exp { ',' Exp }
-    (funcRparams += Exp ',')* funcRparams += Exp;
-
+	(funcRparams += Exp ',')* funcRparams += Exp; 
+	
 // ===============================================================================
 // 第七部分：类型定义
 // ===============================================================================
@@ -270,4 +270,4 @@ hidden terminal SL_COMMENT:
  *    此时Function是Element的拓展，如果发现其特征关键字"function"就转换成该类型
  *    然后就可以使用Call: element=[NamedElement:ID];来处理联合类型（用Type更方便）
  * ===============================================================================
- */
+*/
